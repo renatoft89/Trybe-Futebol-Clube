@@ -17,6 +17,10 @@ export default class LoginMiddleware {
     if (error?.details[0].message.includes('"email"')) {
       return res.status(400).json({ message: 'All fields must be filled' });
     }
+
+    if (error?.details[0].message.includes('"password"')) {
+      return res.status(400).json({ message: 'All fields must be filled' });
+    }
     next();
   };
 }
