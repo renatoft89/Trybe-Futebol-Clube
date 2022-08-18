@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import generateToken from '../jwt/jwt.token';
+import { generateToken } from '../jwt/jwt.token';
 import LoginService from '../services/login.service';
 
 export default class LoginController {

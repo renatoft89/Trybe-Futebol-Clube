@@ -8,5 +8,6 @@ const loginController = new LoginController();
 const loginMiddleware = new LoginMiddleware();
 
 loginRouter.post('/', loginMiddleware.validateUser, loginController.login);
+loginRouter.get('/validate', loginMiddleware.validateToken);
 
 export default loginRouter;

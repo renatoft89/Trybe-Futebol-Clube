@@ -1,4 +1,5 @@
 import * as jwt from 'jsonwebtoken';
+import IUser from '../interfaces/IUser';
 
 const { JWT_SECRET } = process.env;
 
@@ -11,4 +12,9 @@ const generateToken = (payload: unknown) => {
   return token;
 };
 
-export default generateToken;
+const validateToken = (authorization: string) => {
+  const { data } = jwt.verify(authorization, JWT_SECRET as string) as IUser;
+  return data;
+};
+
+export { generateToken, validateToken };

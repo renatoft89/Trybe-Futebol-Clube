@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Joi = require('joi');
 import bcrypt = require('bcryptjs');
 import LoginService from '../services/login.service';
+import { validateToken } from '../jwt/jwt.token';
 
 const USER = Joi.object({
   email: Joi.string().min(3).email().required(),
@@ -33,5 +34,17 @@ export default class LoginMiddleware {
 
     if (!validPassword) return res.status(401).json({ message: 'Incorrect email or password' });
     next();
+  };
+
+  validateToken = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    const { role } = validateToken(authorization as string);
+    // console.log(role);
+
+    if (!role) {
+      return res.status(401).json({ message: 'token invalid' });
+    }
+
+    return res.status(200).send({ role });
   };
 }
