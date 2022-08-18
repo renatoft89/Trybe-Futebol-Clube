@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi = require('joi');
+import bcrypt = require('bcryptjs');
 import LoginService from '../services/login.service';
 
 const USER = Joi.object({
@@ -28,6 +29,9 @@ export default class LoginMiddleware {
       return res.status(400).json({ message: 'All fields must be filled' });
     }
 
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+
+    if (!validPassword) return res.status(401).json({ message: 'Incorrect email or password' });
     next();
   };
 }
