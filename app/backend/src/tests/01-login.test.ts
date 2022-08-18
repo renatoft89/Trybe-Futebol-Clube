@@ -28,7 +28,7 @@ describe('1 - Testes para a rota /login', () => {
       .request(app)
       .post('/login')
       .send({ email: "admin@admin.com", password: "secret_admin" })
-    console.log(response.body);
+    // console.log(response.body);
     
     expect(response.status).to.be.equal(200);
     expect(response.body).to.have.property('token');
