@@ -14,13 +14,20 @@ export default class LoginMiddleware {
     const { error } = USER.validate(req.body);
     // console.log(error);
 
+    const user = await this.service.checkUser(req.body.email);
+    // console.log(user);
     if (error?.details[0].message.includes('"email"')) {
       return res.status(400).json({ message: 'All fields must be filled' });
+    }
+
+    if (!user) {
+      return res.status(401).json({ message: 'Incorrect email or password' });
     }
 
     if (error?.details[0].message.includes('"password"')) {
       return res.status(400).json({ message: 'All fields must be filled' });
     }
+
     next();
   };
 }
