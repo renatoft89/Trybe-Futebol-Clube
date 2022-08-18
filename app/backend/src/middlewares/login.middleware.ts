@@ -12,7 +12,7 @@ export default class LoginMiddleware {
 
   validateUser = async (req: Request, res: Response, next: NextFunction) => {
     const { error } = USER.validate(req.body);
-    console.log(error);
+    // console.log(error);
 
     if (error?.details[0].message.includes('"email"')) {
       return res.status(400).json({ message: 'All fields must be filled' });
