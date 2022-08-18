@@ -16,14 +16,14 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-describe('1 - Testes para a rota /login', () => {
+describe('Testes para a rota /login', () => {
   before(async () => {
     sinon
       .stub(UserModel, 'findOne')
       .resolves(mockUser as unknown as UserModel);
   });
 
-  it('Teste se a rota /login retorna status 200 e um objeto token ', async () => {
+  it('1 - Teste se a rota /login retorna status 200 e um objeto token ', async () => {
     const response = await chai
       .request(app)
       .post('/login')
