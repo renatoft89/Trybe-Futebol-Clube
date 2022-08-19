@@ -13,4 +13,15 @@ export default class MatchesController {
       next(error);
     }
   };
+
+  create = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const newMatche = req.body;
+
+      const matches = await this.service.create(newMatche);
+      return res.status(201).send(matches);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

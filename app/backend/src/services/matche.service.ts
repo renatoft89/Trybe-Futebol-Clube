@@ -15,4 +15,13 @@ export default class MatcheService {
 
     return matches as unknown as IMatche[];
   };
+
+  public create = async (newMatche: IMatche): Promise<IMatche> => {
+    // eslint-disable-next-line no-param-reassign
+    newMatche.inProgress = true;
+    const matches = await MatchesModel.create(newMatche);
+    console.log(newMatche);
+
+    return matches as unknown as IMatche;
+  };
 }
