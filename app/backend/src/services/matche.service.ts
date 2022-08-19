@@ -17,10 +17,9 @@ export default class MatcheService {
   };
 
   public create = async (newMatche: IMatche): Promise<IMatche> => {
-    // eslint-disable-next-line no-param-reassign
-    newMatche.inProgress = true;
-    const matches = await MatchesModel.create(newMatche);
-    console.log(newMatche);
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = newMatche;
+    const inProgressMatche = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals };
+    const matches = await MatchesModel.create(inProgressMatche);
 
     return matches as unknown as IMatche;
   };
