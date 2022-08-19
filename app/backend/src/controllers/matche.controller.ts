@@ -24,4 +24,21 @@ export default class MatchesController {
       next(error);
     }
   };
+
+  finish = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let verifyProgress = 1;
+      const { id } = req.params;
+      const { inProgress } = req.body;
+
+      if (!inProgress) {
+        verifyProgress = 0;
+      }
+
+      await this.service.finish(verifyProgress, +id);
+      return res.status(200).send({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -18,9 +18,15 @@ export default class MatcheService {
 
   public create = async (newMatche: IMatche): Promise<IMatche> => {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = newMatche;
-    const inProgressMatche = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals };
+    const inProgressMatche = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: true };
     const matches = await MatchesModel.create(inProgressMatche);
 
     return matches as unknown as IMatche;
+  };
+
+  public finish = async (inProgress: number, id: number) => {
+    const finishMatche = await MatchesModel.update({ inProgress }, { where: { id } });
+
+    return finishMatche;
   };
 }
