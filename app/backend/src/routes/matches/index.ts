@@ -8,7 +8,12 @@ const matchesController = new MatchesController();
 const matcheMiddleware = new MatchMiddleware();
 
 matchesRouter.get('/', matchesController.getAll);
-matchesRouter.post('/', matcheMiddleware.tokenValidate, matchesController.create);
+matchesRouter.post(
+  '/',
+  matcheMiddleware.tokenValidate,
+  matcheMiddleware.notEqualTeams,
+  matchesController.create,
+);
 matchesRouter.patch('/:id/finish', matchesController.finish);
 
 export default matchesRouter;
