@@ -38,13 +38,11 @@ export default class LoginMiddleware {
 
   validateToken = async (req: Request, res: Response) => {
     const { authorization } = req.headers;
-    const { role } = validateToken(authorization as string);
-    // console.log(role);
-
-    if (!role) {
+    try {
+      const { role } = validateToken(authorization as string);
+      return res.status(200).send({ role });
+    } catch (error) {
       return res.status(401).json({ message: 'token invalid' });
     }
-
-    return res.status(200).send({ role });
   };
 }
