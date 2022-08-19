@@ -11,6 +11,7 @@ matchesRouter.get('/', matchesController.getAll);
 matchesRouter.post(
   '/',
   matcheMiddleware.tokenValidate,
+  matcheMiddleware.validateTeamExists,
   matcheMiddleware.notEqualTeams,
   matchesController.create,
 );
