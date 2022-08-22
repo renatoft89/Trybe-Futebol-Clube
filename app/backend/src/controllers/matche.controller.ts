@@ -41,4 +41,21 @@ export default class MatchesController {
       next(error);
     }
   };
+
+  updateMatche = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+
+      if (!homeTeamGoals || !awayTeamGoals) {
+        return res.status(401).json({ message: 'undefined score' });
+      }
+
+      await this.service.updateMatche(homeTeamGoals, awayTeamGoals, +id);
+      return res.status(200).send({ message: 'match updated successfully' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

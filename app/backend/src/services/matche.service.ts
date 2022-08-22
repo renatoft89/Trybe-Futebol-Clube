@@ -29,4 +29,8 @@ export default class MatcheService {
 
     return finishMatche;
   };
+
+  public updateMatche = async (homeTeamGoals: unknown, awayTeamGoals: unknown, id: number) => {
+    await MatchesModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  };
 }
