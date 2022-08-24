@@ -1,5 +1,6 @@
 import ILeaderboard from '../interfaces/ILeaderBoard';
 import IMatcheHome from '../interfaces/IMatcheHome';
+import ISortRank from '../interfaces/ISortRank';
 
 const calculatePoints = (teamHome: IMatcheHome[]) => {
   let points = 0;
@@ -52,6 +53,18 @@ const calculateEfficiency = (teamHome: IMatcheHome[]) => {
   return efficiency;
 };
 
+const sortRank = (result: ISortRank[]) => {
+  result.sort((a, b) => {
+    if (a.totalPoints < b.totalPoints) return 1;
+    if (a.totalPoints > b.totalPoints) return -1;
+    if (a.goalsBalance < b.goalsBalance) return 1;
+    if (a.goalsBalance > b.goalsBalance) return -1;
+    if (a.goalsFavor < b.goalsFavor) return 1;
+    if (a.goalsFavor > b.goalsFavor) return -1;
+    return 0;
+  });
+};
+
 const createClassification = (teamsAndMatches: ILeaderboard[]) => {
   const result = teamsAndMatches.map((matche) => ({
     name: matche.teamName,
@@ -65,8 +78,10 @@ const createClassification = (teamsAndMatches: ILeaderboard[]) => {
     goalsBalance: calculateGoals(matche.teamHome).goalsBalance,
     efficiency: calculateEfficiency(matche.teamHome),
   }));
-  // console.log(result);
-  return result as unknown as ILeaderboard[];
+
+  sortRank(result);
+
+  return result;
 };
 
 export default createClassification;
