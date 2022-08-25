@@ -5,8 +5,8 @@ interface IMatche {
   awayTeam: number;
   awayTeamGoals: number;
   inProgress: boolean;
-  teamHome: { object: string };
-  temAway: { object: string };
+  teamHome: { teamName: string };
+  teamAway: { teamName: string };
 }
 
 export default IMatche;
