@@ -9,7 +9,7 @@ import { Response } from 'superagent';
 import UserModel from '../database/models/UserModel'
 import { app } from '../app';
 
-import mockUser from './mocks/mocks'
+import { mockUser } from './mocks/mocks'
 
 chai.use(chaiHttp);
 
@@ -32,5 +32,16 @@ describe('Testes para a rota /login', () => {
     
     expect(response.status).to.be.equal(200);
     expect(response.body).to.have.property('token');
+  });
+
+  it('2 - Teste se a rota /login retorna status 401 passando a senha errada ', async () => {
+    const response = await chai
+      .request(app)
+      .post('/login')
+      .send({ email: "admin@admin.com", password: "admin" })
+    
+    
+    expect(response.status).to.be.equal(401);
+    expect(response.body.message).to.equal('Incorrect email or password');
   });
 });
