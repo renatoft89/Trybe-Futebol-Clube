@@ -21,4 +21,13 @@ export default class LeaderboardController {
       next(error);
     }
   };
+
+  public getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const teamsHome = await this.service.getAll();
+      return res.status(200).json(teamsHome);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

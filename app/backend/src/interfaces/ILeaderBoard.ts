@@ -6,6 +6,12 @@ interface ILeaderboard {
     homeTeam: number;
     homeTeamGoals: number;
     awayTeamGoals: number;
+  }],
+  teamAway: [{
+    id: number;
+    homeTeam: number;
+    homeTeamGoals: number;
+    awayTeamGoals: number;
   }]
 }
 
